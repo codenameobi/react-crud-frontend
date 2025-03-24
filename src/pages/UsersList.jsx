@@ -14,10 +14,11 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import LanguageIcon from "@mui/icons-material/Language";
 import AddIcon from "@mui/icons-material/Add";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 const UsersList = ({ users }) => {
   let navigate = useNavigate();
+
 
   const updateUser = (id) => {
     navigate(`/edit/${id}`);
