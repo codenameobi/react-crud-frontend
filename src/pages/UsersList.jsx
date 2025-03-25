@@ -21,7 +21,7 @@ const UsersList = ({ users }) => {
 
 
   const updateUser = (id) => {
-    navigate(`/edit/${id}`);
+    navigate(`/user/${id}`);
   };
   return (
     <Box sx={{ flexGrow: 1, p: 1 }}>
