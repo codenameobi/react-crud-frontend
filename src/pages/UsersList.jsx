@@ -18,6 +18,8 @@ import { useNavigate, useParams } from "react-router";
 
 const UsersList = ({ users }) => {
   let navigate = useNavigate();
+console.log(users);
+
 
 
   const updateUser = (id) => {
@@ -37,8 +39,8 @@ const UsersList = ({ users }) => {
             {/* 3 Cards per row on medium screens */}
             <Card sx={{ borderRadius: 3, boxShadow: 3, p: 2 }}>
               <CardHeader
-                title={user.name}
-                subheader={user.company.name}
+                title={user.firstName}
+                subheader={user.lastName}
                 action={
                   <IconButton aria-label="delete" onClick={() => updateUser(user.id)}>
                     <SettingsIcon />
@@ -64,19 +66,6 @@ const UsersList = ({ users }) => {
                     sx={{ verticalAlign: "middle", mr: 1 }}
                   />
                   {user.phone}
-                </Typography>
-                <Typography variant="body1">
-                  <LanguageIcon
-                    fontSize="small"
-                    sx={{ verticalAlign: "middle", mr: 1 }}
-                  />
-                  <a
-                    href={`http://${user.website}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {user.website}
-                  </a>
                 </Typography>
               </CardContent>
             </Card>

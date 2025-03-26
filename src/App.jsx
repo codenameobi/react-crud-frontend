@@ -13,7 +13,7 @@ function App() {
   const fetchUsers = async () => {
     try {
       const { data } = await axios.get(
-        "https://jsonplaceholder.typicode.com/users"
+        "https://67e475a72ae442db76d48145.mockapi.io/users"
       );
       setUsers(data);
     } catch (error) {
