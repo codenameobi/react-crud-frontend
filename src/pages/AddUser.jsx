@@ -1,61 +1,108 @@
-import React, { useState } from 'react'
-import {useNavigate } from "react-router";
+import React, { useState } from 'react';
+import { useNavigate } from "react-router";
 import axios from 'axios';
+import { TextField, Button, Typography } from '@mui/material'; // Import MUI components
+
 const AddUser = () => {
     const navigate = useNavigate();
-    const createUserApi = "https://67e475a72ae442db76d48145.mockapi.io/users"
+    const createUserApi = "https://67e475a72ae442db76d48145.mockapi.io/users";
+
     const [user, setUser] = useState({
-        name: "",
+        firstName: "",
+        lastName: "",
         email: "",
         phone: ""
-    })
+    });
 
+    const [error, setError] = useState(""); // Error state
 
-    const handelInput = (event) => {
+    const handleInput = (event) => {
         event.preventDefault();
         const { name, value } = event.target;
-        console.log(name, value)
         setUser({ ...user, [name]: value });
-    }
+    };
 
-    const handelSubmit = async (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(user)
         try {
-            const response = await axios.post(createUserApi, user).then(function (response) {
-                console.log(response);
-                setUser({name: "",email: "",phone: ""})
-                navigate('/');
-            }).catch(function (error) {
-                console.log(error);});
+            const response = await axios.post(createUserApi, user);
+            console.log(response);
+            setUser({
+                firstName: "",
+                lastName: "",
+                email: "",
+                phone: ""
+            }); // Reset form after successful submission
+            navigate('/'); // Redirect to the home page
         } catch (error) {
-            setError(error.message);
+            console.error(error);
+            setError("Error creating user. Please try again later.");
         }
-    }
+    };
 
     return (
-        <div className='user-form'>
-            <div className='heading'>\
-            
-                <p>User Form</p>
-            </div>
-            <form onSubmit={handelSubmit}>
+        <div className="user-form">
+            <Typography variant="h5" gutterBottom>User Form</Typography>
+
+            {error && <div className="error" style={{ color: 'red', marginBottom: '10px' }}>{error}</div>} {/* Display error if exists */}
+
+            <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label for="name" className="form-label">Name</label>
-                    <input type="text" className="form-control" id="name" name="name" value={user.name} onChange={handelInput} />
+                    <TextField
+                        label="First Name"
+                        variant="outlined"
+                        fullWidth
+                        name="firstName"
+                        value={user.firstName}
+                        onChange={handleInput}
+                        margin="normal"
+                    />
                 </div>
-                <div className="mb-3 mt-3">
-                    <label for="email" className="form-label">Email</label>
-                    <input type="email" className="form-control" id="email" name="email" value={user.email} onChange={handelInput} />
-                </div>
+
                 <div className="mb-3">
-                    <label for="pwd" className="form-label">Phone</label>
-                    <input type="text" className="form-control" id="phone" name="phone" value={user.phone} onChange={handelInput} />
+                    <TextField
+                        label="Last Name"
+                        variant="outlined"
+                        fullWidth
+                        name="lastName"
+                        value={user.lastName}
+                        onChange={handleInput}
+                        margin="normal"
+                    />
                 </div>
-                <button type="submit" className="btn btn-primary submit-btn">Submit</button>
+
+                <div className="mb-3">
+                    <TextField
+                        label="Email"
+                        variant="outlined"
+                        fullWidth
+                        name="email"
+                        value={user.email}
+                        onChange={handleInput}
+                        margin="normal"
+                        type="email"
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <TextField
+                        label="Phone"
+                        variant="outlined"
+                        fullWidth
+                        name="phone"
+                        value={user.phone}
+                        onChange={handleInput}
+                        margin="normal"
+                        type="text"
+                    />
+                </div>
+
+                <Button type="submit" variant="contained" color="primary" fullWidth>
+                    Submit
+                </Button>
             </form>
         </div>
-    )
-}
+    );
+};
 
-export default AddUser
+export default AddUser;

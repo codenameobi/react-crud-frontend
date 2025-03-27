@@ -11,7 +11,6 @@ import {
 import Grid from "@mui/material/Grid2";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
-import LanguageIcon from "@mui/icons-material/Language";
 import AddIcon from "@mui/icons-material/Add";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useNavigate, useParams } from "react-router";

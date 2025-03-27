@@ -9,20 +9,18 @@ import { useEffect, useState } from "react";
 function App() {
   const [users, setUsers] = useState([]);
   
-
-  const fetchUsers = async () => {
-    try {
-      const { data } = await axios.get(
-        "https://67e475a72ae442db76d48145.mockapi.io/users"
-      );
-      setUsers(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const { data } = await axios.get(
+          "https://67e475a72ae442db76d48145.mockapi.io/users"
+        );
+        setUsers(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchUsers();
   }, []);
   return (
