@@ -14,15 +14,25 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import AddIcon from "@mui/icons-material/Add";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useNavigate, useParams } from "react-router";
+import axios from "axios";
 
 const UsersList = ({ users }) => {
   let navigate = useNavigate();
 console.log(users);
 
-
-
-  const updateUser = (id) => {
-    navigate(`/user/${id}`);
+  const handelDelete = async (id) =>{
+     console.log(id);
+     try {
+        const response = await axios.delete(`https://67e475a72ae442db76d48145.mockapi.io/users/${id}`);
+        console.log(response);
+        navigate("/");
+     } catch (error) {
+         console.error(error);
+     }
+  }
+  
+  const handelUpdate = (id) => {
+    navigate(`/edit/${id}`);
   };
   return (
     <Box sx={{ flexGrow: 1, p: 1 }}>
@@ -66,6 +76,16 @@ console.log(users);
                   />
                   {user.phone}
                 </Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handelUpdate(user.id)}
+                  sx={{ mt: 2 }}>Update</Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handelDelete(user.id)}
+                  sx={{ mt: 2 }}>Delete</Button>
               </CardContent>
             </Card>
           </Grid>
